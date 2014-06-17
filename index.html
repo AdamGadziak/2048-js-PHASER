@@ -52,12 +52,12 @@
 					restartText = game.add.text(0, 450, 'Aby zrestartować grę wciśnij R', { fontSize: '32px', fill: '#B22222' });
 					upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
 					upKey.onDown.add(moveUp,this);
-    				downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    				downKey.onDown.add(moveDown,this);
-    				leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    				leftKey.onDown.add(moveLeft,this);
-    				rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-    				rightKey.onDown.add(moveRight,this);
+    					downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    					downKey.onDown.add(moveDown,this);
+    					leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    					leftKey.onDown.add(moveLeft,this);
+    					rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    					rightKey.onDown.add(moveRight,this);
 					restartKey = game.input.keyboard.addKey(Phaser.Keyboard.R);
 					restartKey.onDown.add(restart,this);
 					tileSprites = game.add.group();
@@ -106,11 +106,11 @@
 				}
 				
 				function moveLeft(){
-                         if(canMove){
-                              canMove=false;
-                              var moved = false;
-     					tileSprites.sort("x",Phaser.Group.SORT_ASCENDING);
-     					tileSprites.forEach(function(item){
+                         		if(canMove){
+                              			canMove=false;
+                        			var moved = false;
+     						tileSprites.sort("x",Phaser.Group.SORT_ASCENDING);
+     						tileSprites.forEach(function(item){
      						var row = toRow(item.pos);
      						var col = toCol(item.pos);
      						if(col>0){
@@ -127,44 +127,42 @@
      							if(col!=i+1){
                                              moved=true;
                                              moveTile(item,row*4+col,row*4+i+1,remove);
-
-               							}
+           						}
      						}
      					});
      					endMove(moved);
-                         }
-				}
-				
-				function endMove(m){
+                        	 }
+			}
+			function endMove(m){
 					if(m){
      					addTwo();
                          }
                          else{
-						canMove=true;
+				canMove=true;
 					}
-					if(m){
-						score += 10;
-                    	scoreText.text = 'Wynik: ' + score;
-                    	if(score > localStorage.getItem('highscore')){
-                        	localStorage.setItem('highscore', score);
-						}
-                    	highscoreText.text = 'Highscore: ' + localStorage.getItem('highscore');
-                    }
+			if(m){
+				score += 10;
+                    		scoreText.text = 'Wynik: ' + score;
+                    		if(score > localStorage.getItem('highscore')){
+                        		localStorage.setItem('highscore', score);
 				}
+                    		highscoreText.text = 'Highscore: ' + localStorage.getItem('highscore');
+        		 	}
+			}
 				
-				function moveTile(tile,from,to,remove){
-                         fieldArray[to]=fieldArray[from];
-                         fieldArray[from]=0;
-                         tile.pos=to;
-                         var movement = game.add.tween(tile);
-                         movement.to({x:tileSize*(toCol(to)),y:tileSize*(toRow(to))},150);
-                         if(remove){
-                              fieldArray[to]*=2;
-                              movement.onComplete.add(function(){
-                                   tile.destroy();
-                              });
-                         }
-                         movement.start();
+			function moveTile(tile,from,to,remove){
+                		        fieldArray[to]=fieldArray[from];
+                         		fieldArray[from]=0;
+                         		tile.pos=to;
+                         		var movement = game.add.tween(tile);
+                         		movement.to({x:tileSize*(toCol(to)),y:tileSize*(toRow(to))},150);
+                         		if(remove){
+                              			fieldArray[to]*=2;
+                        			movement.onComplete.add(function(){
+                                   			tile.destroy();
+                              			});
+                         		}
+                         		movement.start();
                     }
                     
                     function moveUp(){
@@ -176,7 +174,7 @@
      						var row = toRow(item.pos);
      						var col = toCol(item.pos);
      						if(row>0){  
-                                        var remove=false;
+                                			var remove=false;
      							for(i=row-1;i>=0;i--){
      								if(fieldArray[i*4+col]!=0){
      									if(fieldArray[i*4+col]==fieldArray[row*4+col]){
@@ -198,17 +196,17 @@
 				
                     function moveRight(){
                           if(canMove){
-                              canMove=false;
-                              var moved=false;
-     					tileSprites.sort("x",Phaser.Group.SORT_DESCENDING);
-     					tileSprites.forEach(function(item){
-     						var row = toRow(item.pos);
-     						var col = toCol(item.pos);
-     						if(col<3){
-                                        var remove = false;
-     							for(i=col+1;i<=3;i++){
-     								if(fieldArray[row*4+i]!=0){
-                                                  if(fieldArray[row*4+i]==fieldArray[row*4+col]){
+                              	canMove=false;
+                              	var moved=false;
+     				tileSprites.sort("x",Phaser.Group.SORT_DESCENDING);
+     				tileSprites.forEach(function(item){
+     					var row = toRow(item.pos);
+     					var col = toCol(item.pos);
+     					if(col<3){
+     						var remove = false;
+     						for(i=col+1;i<=3;i++){
+     							if(fieldArray[row*4+i]!=0){
+                                			          if(fieldArray[row*4+i]==fieldArray[row*4+col]){
      										remove = true;
      										i++;                                             
      									}
@@ -216,15 +214,14 @@
      								}
      							}
      							if(col!=i-1){
-                                             moved=true;
+                                             			moved=true;
      								moveTile(item,row*4+col,row*4+i-1,remove);
      							}
      						}
      					});
      					endMove(moved);
-                         }
-				}
-                    
+                         	}
+			}
                     function moveDown(){
                           if(canMove){
                               canMove=false;
@@ -234,22 +231,22 @@
      						var row = toRow(item.pos);
      						var col = toCol(item.pos);
      						if(row<3){
-                                        var remove = false;
+                                			var remove = false;
      							for(i=row+1;i<=3;i++){
      								if(fieldArray[i*4+col]!=0){
      									if(fieldArray[i*4+col]==fieldArray[row*4+col]){
      										remove = true;
      										i++;                                             
      									}
-                                                  break
+                                                			 break
      								}
      							}
      							if(row!=i-1){
-                                             moved=true;
+                                        			moved=true;
      								moveTile(item,row*4+col,(i-1)*4+col,remove);
      							}
      						}
-     					};
+     					});
      				     endMove(moved);
                     }
 				}
